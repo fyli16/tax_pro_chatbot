@@ -11,7 +11,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY") or st.secrets["OPENAI_API_KEY"]
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY") or st.secrets["PINECONE_API_KEY"]
 
 # Reconnect to your existing index
-INDEX_NAME = "tax-rag3"
+INDEX_NAME = "tax-rag"
 pc = Pinecone(api_key=PINECONE_API_KEY)
 index_info = pc.describe_index(INDEX_NAME)
 index = pc.Index(host=index_info.host)
