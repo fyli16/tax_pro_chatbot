@@ -1,0 +1,7 @@
+streamlit
+pinecone
+openai
+os
+dotenv
+langchain_openai
+
