@@ -2,7 +2,7 @@ import streamlit as st
 from pinecone import Pinecone
 import os
 from dotenv import load_dotenv
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from openai import OpenAI
 
 
@@ -11,18 +11,16 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 
-INDEX_NAME = "tax-rag"
-
-client = OpenAI()
-
-embedding_model = OpenAIEmbeddings(openai_api_key = OPENAI_API_KEY)
-
-pc = Pinecone(api_key=PINECONE_API_KEY)
-
 # Reconnect to your existing index
+INDEX_NAME = "tax-rag3"
+pc = Pinecone(api_key=PINECONE_API_KEY)
 index_info = pc.describe_index(INDEX_NAME)
 index = pc.Index(host=index_info.host)
 
+embedding_model = OpenAIEmbeddings(openai_api_key = OPENAI_API_KEY)
+client = OpenAI()
+
+# Build the Retrieval-Augmented Generation (RAG) pipeline
 def retrieve_context(query):
     embedded_query = embedding_model.embed_query(query)
     results = index.query(vector=embedded_query, top_k=5, include_metadata=True)
@@ -37,7 +35,7 @@ def generate_answer(query):
     )
     return response.choices[0].message.content
 
-st.title("Chatbot")
+st.title("Tax Filing Chatbot 2025")
 
 query = st.text_input("Ask me a tax question:")
 if query:
