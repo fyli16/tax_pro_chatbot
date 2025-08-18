@@ -46,7 +46,7 @@ def generate_answer(query, conversation_history=None):
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-st.title("Tax Filing Chatbot 2025")
+st.title("Tax Filing Chatbot")
 
 # Display chat history
 for message in st.session_state.messages:
@@ -95,5 +95,5 @@ This chatbot can help you with questions about:
 - Tax deadlines and requirements
 - And more!
 
-The bot uses the official IRS instructions for 2025 tax filing.
+The bot uses the official IRS instructions for tax filing.
 """)
